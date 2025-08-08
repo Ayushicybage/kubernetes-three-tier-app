@@ -12,10 +12,10 @@ RUN apt-get update && apt-get install -y \
 ENV CATALINA_HOME=/opt/tomcat
 ENV PATH=$CATALINA_HOME/bin:$PATH
 #Download & install Tomcat
-RUN wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.98/bin/apache-tomcat-9.0.98.tar.gz \
+RUN wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.104/bin/apache-tomcat-9.0.104.tar.gz \
     && mkdir -p $CATALINA_HOME \
-    && tar xvf apache-tomcat-9.0.98.tar.gz -C $CATALINA_HOME --strip-components=1 \
-    && rm apache-tomcat-9.0.98.tar.gz
+    && tar xvf apache-tomcat-9.0.104.tar.gz -C $CATALINA_HOME --strip-components=1 \
+    && rm apache-tomcat-9.0.104.tar.gz
 #Expose Tomcat port
 EXPOSE 8080   
 #Start Tomcat
