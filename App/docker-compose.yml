@@ -9,19 +9,19 @@ services:
     build: ./Frontend
     ports:
       - "8080:80"
-    networks:
-      - app-network
     depends_on:
       - backend
+    networks:
+      - app-network
 
   backend:
     build: ./Backend
     ports:
       - "3000:3000"
-    networks:
-      - app-network
     depends_on:
       - db
+    networks:
+      - app-network
 
   db:
     image: mysql:8.0
