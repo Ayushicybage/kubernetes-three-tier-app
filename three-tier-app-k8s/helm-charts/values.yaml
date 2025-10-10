@@ -1,0 +1,47 @@
+replicaCount: 1
+
+frontend:
+  image:
+    repository: docker.io/ayushicybage/frontend
+    tag: latest
+  service:
+    type: ClusterIP
+    port: 3000
+
+backend:
+  image:
+    repository: docker.io/ayushicybage/backend
+    tag: latest
+  service:
+    type: ClusterIP
+    port: 8080
+  env:
+    - name: DATABASE_HOST
+      value: mysql
+    - name: DATABASE_PORT
+      value: 3306
+    - name: DATABASE_NAME
+      value: mydb
+    - name: DATABASE_USER
+      valueFrom:
+        secretKeyRef:
+          name: mysql-secret
+          key: username
+    - name: DATABASE_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mysql-secret
+          key: password
+
+mysql:
+  image: mysql:8.0
+  rootPassword: rootpass
+  database: mydb
+  username: appuser
+  password: apppass
+  persistence:
+    enabled: true
+    size: 5Gi
+  initdb:
+    enabled: true
+    script: /docker-entrypoint-initdb.d/init.sql
