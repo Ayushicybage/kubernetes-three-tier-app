@@ -3,8 +3,9 @@ kind: Service
 metadata:
   name: mysql
 spec:
-  ports:
-    - port: "3306"
-      targetPort: "3306"
   selector:
     app: mysql
+  ports:
+    - protocol: TCP
+      port: {{ .Values.mysql.service.port | default 3306 | int }}
+      targetPort: {{ .Values.mysql.service.port | default 3306 | int }}

@@ -20,7 +20,7 @@ spec:
             - name: MYSQL_DATABASE
               value: "appdb"
           ports:
-            - containerPort: "3306"
+            - containerPort: 3306
           volumeMounts:
             - name: mysql-storage
               mountPath: /var/lib/mysql

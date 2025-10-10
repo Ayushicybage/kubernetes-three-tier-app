@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: frontend
 spec:
-  type: {{ .Values.frontend.service.type }}
+  type: ClusterIP
   selector:
     app: frontend
   ports:
     - protocol: TCP
-      port: 80         # exposed to cluster / ingress
-      targetPort: 80   # container port
+      port: {{ .Values.frontend.service.port | int }}
+      targetPort: {{ .Values.frontend.service.port | int }}

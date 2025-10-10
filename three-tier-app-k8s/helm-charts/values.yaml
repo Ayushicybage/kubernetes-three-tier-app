@@ -45,3 +45,5 @@ mysql:
   initdb:
     enabled: true
     script: /docker-entrypoint-initdb.d/init.sql
+  service:
+    port: 3306   
