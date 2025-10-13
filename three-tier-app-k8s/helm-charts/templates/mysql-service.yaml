@@ -6,6 +6,6 @@ spec:
   selector:
     app: mysql
   ports:
-    - protocol: TCP
-      port: {{ .Values.mysql.service.port | default 3306 | int }}
-      targetPort: {{ .Values.mysql.service.port | default 3306 | int }}
+  - protocol: TCP
+    port: {{ .Values.mysql.service.port | default 3306 | int }}
+    targetPort: {{ .Values.mysql.service.port | default 3306 | int }}

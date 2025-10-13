@@ -6,7 +6,10 @@ frontend:
     tag: latest
   service:
     type: ClusterIP
-    port: 3000
+    port: 80
+  env:
+    - name: REACT_APP_BACKEND_URL
+      value: "http://backend:8080"   # 👈 internal service URL
 
 backend:
   image:
@@ -46,4 +49,4 @@ mysql:
     enabled: true
     script: /docker-entrypoint-initdb.d/init.sql
   service:
-    port: 3306   
+    port: 3306

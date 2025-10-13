@@ -14,18 +14,21 @@ spec:
     spec:
       containers:
         - name: backend
-          image: "{{.Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
           ports:
             - containerPort: {{ .Values.backend.service.port | int }}
           env:
             {{- range .Values.backend.env }}
-            - name: {{ .name }}
+            - name: "{{ .name }}"
               {{- if .value }}
               value: "{{ .value }}"
               {{- else if .valueFrom }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ .valueFrom.secretKeyRef.name }}
-                  key: {{ .valueFrom.secretKeyRef.key }}
+                  name: "{{ .valueFrom.secretKeyRef.name }}"
+                  key: "{{ .valueFrom.secretKeyRef.key }}"
               {{- end }}
-            {{- end }}
+          {{- end }}
+        
+
+ 

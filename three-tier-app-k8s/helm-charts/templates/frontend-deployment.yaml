@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: frontend
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount | default 1 | int }}
   selector:
     matchLabels:
       app: frontend
@@ -16,4 +16,9 @@ spec:
         - name: frontend
           image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
           ports:
-            - containerPort: {{ .Values.frontend.service.port | int }}
+            - containerPort: {{ .Values.frontend.service.port | default 80 | int }}
+          env:
+{{- range .Values.frontend.env }}
+            - name: {{ .name }}
+              value: "{{ .value }}"
+{{- end }}
