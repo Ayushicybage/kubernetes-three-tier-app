@@ -2,20 +2,19 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
-# Copy package.json (we’ll add react-scripts automatically inside container)
-COPY package.json ./
+# Copy package.json and install dependencies
+COPY package.json package-lock.json* ./
+RUN npm install
 
-# Install dependencies + react-scripts (even if it's missing)
-RUN npm install react-scripts && npm install
-
-# Copy the rest of your project files
+# Copy the rest of the project and build
 COPY . .
-
-# Build the React app
 RUN npm run build
 
 # Stage 2: Serve with Nginx
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
+# Copy custom Nginx config
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

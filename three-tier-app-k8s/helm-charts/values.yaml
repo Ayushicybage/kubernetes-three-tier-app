@@ -9,7 +9,7 @@ frontend:
     port: 80
   env:
     - name: REACT_APP_BACKEND_URL
-      value: "http://backend:8080"   # 👈 internal service URL
+      value: "http://backend:5000" # internal service URL
 
 backend:
   image:
@@ -17,7 +17,7 @@ backend:
     tag: latest
   service:
     type: ClusterIP
-    port: 8080
+    port: 5000
   env:
     - name: DATABASE_HOST
       value: mysql
