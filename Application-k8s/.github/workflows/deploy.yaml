@@ -6,20 +6,37 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up kubeconfig
-        run: |
-          echo "${KUBE_CONFIG_DATA}" | base64 --decode > $HOME/.kube/config
+      - name: Verify Kubernetes connection
+        shell: pwsh
         env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-
-      - name: Verify connection
-        run: kubectl get nodes
+          KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
+        run: |
+          Write-Host "✅ Verifying Kubernetes connection..."
+          kubectl config current-context
+          kubectl get nodes
+        continue-on-error: false
 
       - name: Deploy to cluster
-        run: kubectl apply -f ./Application-k8s/ -n three-tier
+        shell: pwsh
+        env:
+          KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
+        run: |
+          Write-Host "🚀 Deploying Kubernetes manifests"
+          kubectl apply -f ./Application-k8s/ -n three-tier
+          kubectl rollout status deployment/backend -n three-tier
+          kubectl rollout status deployment/frontend -n three-tier
+          kubectl get pods -n three-tier
+
+      - name: Verify deployment resources
+        shell: pwsh
+        env:
+          KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
+        run: |
+          Write-Host "📦 Listing all resources in 'three-tier' namespace..."
+          kubectl get all -n three-tier
