@@ -15,25 +15,25 @@ spec:
     spec:
       containers:
         - name: backend
-          image: docker.io/ayushicybage/backend:latest   # ✅ Correct format
+          image: docker.io/ayushicybage/backend:latest
           ports:
             - containerPort: 5000
           env:
-            - name: DB_HOST
+            - name: DATABASE_HOST
               value: mysql
-            - name: DB_PORT
+            - name: DATABASE_PORT
               value: "3306"
-            - name: DB_USER
+            - name: DATABASE_USER
               valueFrom:
                 secretKeyRef:
                   name: mysql-secret
                   key: username
-            - name: DB_PASSWORD
+            - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mysql-secret
                   key: password
-            - name: DB_NAME
+            - name: DATABASE_NAME
               valueFrom:
                 configMapKeyRef:
                   name: app-config
