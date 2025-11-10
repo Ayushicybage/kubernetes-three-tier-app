@@ -2,25 +2,24 @@ name: Deploy to Kubernetes
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
 
 jobs:
   deploy:
-    name: Deploy to Kubernetes Cluster
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Kubeconfig
+      - name: Set up kubeconfig
         run: |
-          mkdir -p ~/.kube
-          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > ~/.kube/config
+          echo "${KUBE_CONFIG_DATA}" | base64 --decode > $HOME/.kube/config
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
 
-      - name: Verify cluster connection
+      - name: Verify connection
         run: kubectl get nodes
 
-      - name: Apply Kubernetes manifests
-        run: kubectl apply -f ./k8s/ -n three-tier
+      - name: Deploy to cluster
+        run: kubectl apply -f ./Application-k8s/ -n three-tier
