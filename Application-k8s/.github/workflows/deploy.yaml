@@ -21,8 +21,11 @@ jobs:
         env:
           KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
         run: |
-          Write-Host "✅ Verifying Kubernetes connection..."
+          Write-Host "Using kubeconfig at $env:KUBECONFIG"
+          type $env:KUBECONFIG
+          kubectl config view
           kubectl config current-context
+          kubectl cluster-info
           kubectl get nodes
 
       - name: Deploy to cluster
