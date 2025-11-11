@@ -4,17 +4,20 @@ on:
   push:
     branches: [ "main" ]
 
+defaults:
+  run:
+    shell: pwsh   # 👈 Ensures PowerShell on Windows runner
+
 jobs:
   deploy:
     name: Deploy to Kubernetes Cluster
-    runs-on: [self-hosted, Windows, X64]
+    runs-on: [self-hosted, Windows, X64]   # 👈 Must match labels from GitHub runner page
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Verify Kubernetes connection
-        shell: pwsh
         env:
           KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
         run: |
@@ -23,7 +26,6 @@ jobs:
           kubectl get nodes
 
       - name: Deploy to cluster
-        shell: pwsh
         env:
           KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
         run: |
@@ -34,7 +36,6 @@ jobs:
           kubectl get pods -n three-tier
 
       - name: Verify deployment resources
-        shell: pwsh
         env:
           KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
         run: |
