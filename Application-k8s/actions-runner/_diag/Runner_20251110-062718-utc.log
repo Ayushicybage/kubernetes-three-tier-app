@@ -135,3 +135,222 @@
 [2025-11-10 07:17:37Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
 [2025-11-10 08:07:52Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
 [2025-11-10 08:07:53Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 08:58:09Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 08:58:10Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 09:48:26Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 09:48:27Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 10:38:42Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 10:38:43Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 11:28:57Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 11:28:58Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 12:19:13Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 12:19:14Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 13:09:28Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 13:09:29Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 13:59:45Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 13:59:46Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 14:50:01Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 14:50:01Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 15:40:16Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 15:40:17Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 16:30:32Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 16:30:32Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 17:20:47Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 17:20:48Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 18:11:02Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 18:11:03Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 19:01:17Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 19:01:18Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 19:26:00Z INFO Runner] Received RunnerRefreshConfigMessage for 'runner' config file
+[2025-11-10 19:26:00Z INFO RunnerConfigUpdater] Verifying runner qualified id: U_kgDODW5BCQ/R_kgDOP_05-A/self-hosted/21
+[2025-11-10 19:26:00Z INFO HostContext] Well known directory 'Bin': 'C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\bin'
+[2025-11-10 19:26:00Z INFO HostContext] Well known directory 'Root': 'C:\Users\ayushidh\Desktop\Application-k8s\actions-runner'
+[2025-11-10 19:26:00Z INFO HostContext] Well known config file 'Runner': 'C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.runner'
+[2025-11-10 19:26:01Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 19:26:01Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 19:26:02Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 19:26:02Z INFO ConfigurationStore] Saving runner migrated settings
+[2025-11-10 19:26:02Z INFO ConfigurationStore] Migrated Settings Saved.
+[2025-11-10 19:26:02Z INFO Runner] Runner configuration was updated. Session restart has been scheduled
+[2025-11-10 19:26:02Z INFO Runner] Pending session restart detected and job dispatcher is not busy. Restarting session now.
+[2025-11-10 19:26:02Z INFO JobDispatcher] Shutting down JobDispatcher. Make sure all WorkerDispatcher has finished.
+[2025-11-10 19:26:02Z INFO Runner] Deleting Runner Session...
+[2025-11-10 19:26:02Z INFO Runner] Restarting runner session after config update...
+[2025-11-10 19:26:02Z INFO Runner] Runner configuration was refreshed, restarting session...
+[2025-11-10 19:26:02Z INFO ConfigurationManager] LoadSettings
+[2025-11-10 19:26:02Z INFO ConfigurationStore] IsConfigured()
+[2025-11-10 19:26:02Z INFO ConfigurationStore] IsConfigured: True
+[2025-11-10 19:26:02Z INFO ConfigurationManager] Is configured: True
+[2025-11-10 19:26:02Z INFO ConfigurationManager] Settings Loaded
+[2025-11-10 19:26:02Z INFO Runner] RunAsync
+[2025-11-10 19:26:02Z INFO ConfigurationManager] LoadMigratedSettings
+[2025-11-10 19:26:02Z INFO ConfigurationStore] IsMigratedConfigured()
+[2025-11-10 19:26:02Z INFO ConfigurationStore] IsMigratedConfigured: True
+[2025-11-10 19:26:02Z INFO ConfigurationStore] Read migrated setting file: 408 chars
+[2025-11-10 19:26:02Z INFO ConfigurationManager] Migrated Settings Loaded
+[2025-11-10 19:26:02Z INFO Runner] Loaded migrated settings from .runner_migrated file
+[2025-11-10 19:26:02Z INFO Runner] {
+  "AgentId": 21,
+  "AgentName": "CVC176",
+  "PoolId": 1,
+  "PoolName": "Default",
+  "ServerUrl": "https://pipelinesghubeus2.actions.githubusercontent.com/AbvmMilMNwACunVY1r2lZgcDOcKS7nMVvychye3JNWwmOYP3YH/",
+  "GitHubUrl": "https://github.com/Ayushicybage/kubernetes-three-tier-app",
+  "WorkFolder": "_work",
+  "UseV2Flow": true,
+  "ServerUrlV2": "https://broker.actions.githubusercontent.com/"
+}
+[2025-11-10 19:26:02Z INFO Runner] Attempting to create session using migrated settings
+[2025-11-10 19:26:02Z INFO Runner] Using BrokerMessageListener
+[2025-11-10 19:26:02Z INFO BrokerMessageListener] Using provided settings
+[2025-11-10 19:26:02Z INFO BrokerMessageListener] Using migrated settings from .runner_migrated
+[2025-11-10 19:26:02Z INFO BrokerMessageListener] {
+  "AgentId": 21,
+  "AgentName": "CVC176",
+  "PoolId": 1,
+  "PoolName": "Default",
+  "ServerUrl": "https://pipelinesghubeus2.actions.githubusercontent.com/AbvmMilMNwACunVY1r2lZgcDOcKS7nMVvychye3JNWwmOYP3YH/",
+  "GitHubUrl": "https://github.com/Ayushicybage/kubernetes-three-tier-app",
+  "WorkFolder": "_work",
+  "UseV2Flow": true,
+  "ServerUrlV2": "https://broker.actions.githubusercontent.com/"
+}
+[2025-11-10 19:26:02Z INFO BrokerMessageListener] Loading Credentials
+[2025-11-10 19:26:02Z INFO ConfigurationStore] HasCredentials()
+[2025-11-10 19:26:02Z INFO ConfigurationStore] stored True
+[2025-11-10 19:26:02Z INFO CredentialManager] GetCredentialProvider
+[2025-11-10 19:26:02Z INFO CredentialManager] Creating type OAuth
+[2025-11-10 19:26:02Z INFO CredentialManager] Creating credential type: OAuth
+[2025-11-10 19:26:02Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 19:26:02Z INFO BrokerMessageListener] Attempt to create session.
+[2025-11-10 19:26:02Z INFO BrokerMessageListener] Connecting to the Broker Server...
+[2025-11-10 19:26:02Z INFO ConfigurationStore] HasCredentials()
+[2025-11-10 19:26:02Z INFO ConfigurationStore] stored True
+[2025-11-10 19:26:02Z INFO CredentialManager] GetCredentialProvider
+[2025-11-10 19:26:02Z INFO CredentialManager] Creating type OAuth
+[2025-11-10 19:26:02Z INFO CredentialManager] Creating credential type: OAuth
+[2025-11-10 19:26:02Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 19:26:02Z INFO BrokerMessageListener] VssConnection created
+[2025-11-10 19:26:02Z INFO BrokerMessageListener] Connecting to the Runner server...
+[2025-11-10 19:26:02Z INFO RunnerServer] EstablishVssConnection
+[2025-11-10 19:26:02Z INFO RunnerServer] Establish connection with 100 seconds timeout.
+[2025-11-10 19:26:02Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2025-11-10 19:26:02Z INFO RunnerServer] EstablishVssConnection
+[2025-11-10 19:26:02Z INFO RunnerServer] Establish connection with 60 seconds timeout.
+[2025-11-10 19:26:02Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2025-11-10 19:26:02Z INFO RunnerServer] EstablishVssConnection
+[2025-11-10 19:26:02Z INFO RunnerServer] Establish connection with 60 seconds timeout.
+[2025-11-10 19:26:02Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2025-11-10 19:26:03Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2025-11-10 19:26:03Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2025-11-10 19:26:03Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2025-11-10 19:26:03Z INFO BrokerMessageListener] VssConnection created
+[2025-11-10 19:26:03Z INFO Terminal] WRITE LINE: 
+[2025-11-10 19:26:03Z INFO Terminal] WRITE LINE: 
+[2025-11-10 19:26:03Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 19:26:03Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 19:26:04Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 19:26:05Z INFO BrokerMessageListener] Session created.
+[2025-11-10 19:26:05Z INFO Runner] Successfully created session with migrated settings
+[2025-11-10 19:26:05Z INFO Terminal] WRITE LINE: Current runner version: '2.329.0'
+[2025-11-10 19:26:05Z INFO Terminal] WRITE LINE: 2025-11-10 19:26:05Z: Listening for Jobs
+[2025-11-10 19:26:05Z INFO JobDispatcher] Set runner/worker IPC timeout to 30 seconds.
+[2025-11-10 20:16:19Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 20:16:20Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 21:06:35Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 21:06:36Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 21:56:51Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 21:56:52Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 22:47:06Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 22:47:07Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-10 23:37:20Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-10 23:37:21Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-11 00:27:35Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-11 00:27:35Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-11 01:17:49Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-11 01:17:50Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-11 02:08:04Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-11 02:08:04Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-11 02:58:18Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-11 02:58:19Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-11 03:48:32Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-11 03:48:33Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-11 04:38:46Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file C:\Users\ayushidh\Desktop\Application-k8s\actions-runner\.credentials_rsaparams
+[2025-11-11 04:38:47Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-11-11 04:57:20Z INFO Terminal] WRITE LINE: Exiting...
+[2025-11-11 04:57:20Z INFO ConfigurationStore] IsServiceConfigured()
+[2025-11-11 04:57:20Z INFO ConfigurationStore] IsServiceConfigured: True
+[2025-11-11 04:57:20Z INFO Runner] Received Ctrl-C signal, stop Runner.Listener and Runner.Worker.
+[2025-11-11 04:57:20Z INFO HostContext] Runner will be shutdown for UserCancelled
+[2025-11-11 04:57:20Z WARN GitHubActionsService] GET request to https://broker.actions.githubusercontent.com/message?sessionId=3238e6e3-8d5c-4cf0-ab01-d3675463ead7&status=Online&runnerVersion=2.329.0&os=Windows&architecture=X64&disableUpdate=false has been cancelled.
+[2025-11-11 04:57:20Z ERR  BrokerServer] Catch exception during request
+[2025-11-11 04:57:20Z ERR  BrokerServer] System.Threading.Tasks.TaskCanceledException: The operation was canceled.
+ ---> System.Threading.Tasks.TaskCanceledException: The operation was canceled.
+ ---> System.IO.IOException: Unable to read data from the transport connection: The I/O operation has been aborted because of either a thread exit or an application request..
+ ---> System.Net.Sockets.SocketException (995): The I/O operation has been aborted because of either a thread exit or an application request.
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReadAsyncInternal[TIOAdapter](Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.AuthenticationHelper.SendWithNtAuthAsync(HttpRequestMessage request, Uri authUri, Boolean async, ICredentials credentials, Boolean isProxyAuth, HttpConnection connection, HttpConnectionPool connectionPool, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.AuthenticationHelper.SendWithAuthAsync(HttpRequestMessage request, Uri authUri, Boolean async, ICredentials credentials, Boolean preAuthenticate, Boolean isProxyAuth, Boolean doRequestAuth, HttpConnectionPool pool, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at GitHub.Services.Common.RawHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at GitHub.Services.Common.VssHttpRetryMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Sdk.WebApi.WebApi.RawHttpClientBase.SendAsync(HttpRequestMessage message, HttpCompletionOption completionOption, Object userState, CancellationToken cancellationToken)
+   at Sdk.WebApi.WebApi.RawHttpClientBase.SendAsync[T](HttpRequestMessage message, Boolean readErrorBody, Object userState, CancellationToken cancellationToken)
+   at Sdk.WebApi.WebApi.RawHttpClientBase.SendAsync[T](HttpMethod method, IEnumerable`1 additionalHeaders, Uri requestUri, HttpContent content, IEnumerable`1 queryParameters, Boolean readErrorBody, Object userState, CancellationToken cancellationToken)
+   at GitHub.Actions.RunService.WebApi.BrokerHttpClient.GetRunnerMessageAsync(Nullable`1 sessionId, String runnerVersion, Nullable`1 status, String os, String architecture, Nullable`1 disableUpdate, CancellationToken cancellationToken)
+   at GitHub.Runner.Common.BrokerServer.<>c__DisplayClass7_0.<<GetRunnerMessageAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at GitHub.Runner.Common.RunnerService.RetryRequest[T](Func`1 func, CancellationToken cancellationToken, Int32 maxAttempts, Func`2 shouldRetry)
+[2025-11-11 04:57:20Z ERR  BrokerServer] #####################################################
+[2025-11-11 04:57:20Z ERR  BrokerServer] System.Threading.Tasks.TaskCanceledException: The operation was canceled.
+ ---> System.IO.IOException: Unable to read data from the transport connection: The I/O operation has been aborted because of either a thread exit or an application request..
+ ---> System.Net.Sockets.SocketException (995): The I/O operation has been aborted because of either a thread exit or an application request.
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReadAsyncInternal[TIOAdapter](Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.AuthenticationHelper.SendWithNtAuthAsync(HttpRequestMessage request, Uri authUri, Boolean async, ICredentials credentials, Boolean isProxyAuth, HttpConnection connection, HttpConnectionPool connectionPool, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.AuthenticationHelper.SendWithAuthAsync(HttpRequestMessage request, Uri authUri, Boolean async, ICredentials credentials, Boolean preAuthenticate, Boolean isProxyAuth, Boolean doRequestAuth, HttpConnectionPool pool, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at GitHub.Services.Common.RawHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at GitHub.Services.Common.VssHttpRetryMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+[2025-11-11 04:57:20Z ERR  BrokerServer] #####################################################
+[2025-11-11 04:57:20Z ERR  BrokerServer] System.IO.IOException: Unable to read data from the transport connection: The I/O operation has been aborted because of either a thread exit or an application request..
+ ---> System.Net.Sockets.SocketException (995): The I/O operation has been aborted because of either a thread exit or an application request.
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReadAsyncInternal[TIOAdapter](Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+[2025-11-11 04:57:20Z ERR  BrokerServer] #####################################################
+[2025-11-11 04:57:20Z ERR  BrokerServer] System.Net.Sockets.SocketException (995): The I/O operation has been aborted because of either a thread exit or an application request.
+[2025-11-11 04:57:20Z WARN BrokerServer] Back off 14.591 seconds before next retry. 4 attempt left.
+[2025-11-11 04:57:20Z INFO BrokerMessageListener] Get next message has been cancelled.
+[2025-11-11 04:57:20Z INFO JobDispatcher] Shutting down JobDispatcher. Make sure all WorkerDispatcher has finished.
+[2025-11-11 04:57:20Z INFO Runner] Deleting Runner Session...
+[2025-11-11 04:57:21Z INFO Listener] Runner execution been cancelled.
