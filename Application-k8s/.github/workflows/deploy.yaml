@@ -11,7 +11,7 @@ defaults:
 jobs:
   deploy:
     name: Deploy to Kubernetes Cluster
-    runs-on: [self-hosted, Windows, X64]   # 👈 Must match labels from GitHub runner page
+    runs-on: self-hosted
 
     steps:
       - name: Checkout repository
