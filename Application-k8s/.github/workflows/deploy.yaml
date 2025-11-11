@@ -6,10 +6,11 @@ on:
 
 jobs:
   deploy:
+    name: Deploy to Kubernetes Cluster
     runs-on: [self-hosted, Windows, X64]
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Verify Kubernetes connection
@@ -20,15 +21,14 @@ jobs:
           Write-Host "✅ Verifying Kubernetes connection..."
           kubectl config current-context
           kubectl get nodes
-        continue-on-error: false
 
       - name: Deploy to cluster
         shell: pwsh
         env:
           KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
         run: |
-          Write-Host "🚀 Deploying Kubernetes manifests"
-          kubectl apply -f ./Application-k8s/ -n three-tier
+          Write-Host "🚀 Deploying Kubernetes manifests..."
+          kubectl apply -f "C:\\Users\\ayushidh\\Desktop\\Application-k8s\\" -n three-tier
           kubectl rollout status deployment/backend -n three-tier
           kubectl rollout status deployment/frontend -n three-tier
           kubectl get pods -n three-tier
