@@ -28,15 +28,16 @@ jobs:
         shell: powershell
         run: kubectl get nodes
 
-      - name: Clean existing PVC (prevent conflict)
+      - name: Clean existing PVCs (prevent conflict)
         shell: powershell
         run: |
-          try {
-             kubectl delete pvc mysql-storage-mysql-0 -n three-tier --ignore-not-found --grace-period=0 --force
+          Write-Host "Cleaning stuck PVCs..."
+          $terminatingPVCs = kubectl get pvc -n three-tier --no-headers | Select-String "Terminating"
+          if ($terminatingPVCs) {
+            kubectl patch pvc mysql-storage-mysql-0 -n three-tier -p '{"metadata":{"finalizers":null}}' --type=merge
           }
-          catch {
-            Write-Host "PVC not found or already deleted"
-          }
+          kubectl delete pvc mysql-storage-mysql-0 -n three-tier --ignore-not-found --grace-period=0 --force --wait=false
+          Write-Host "PVC deletion triggered (non-blocking)"
 
       - name: Apply Kubernetes manifests
         shell: powershell
