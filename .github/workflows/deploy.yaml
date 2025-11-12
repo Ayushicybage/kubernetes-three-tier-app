@@ -11,24 +11,28 @@ jobs:
     runs-on: [self-hosted, Windows, X64]
 
     steps:
-      - name: Checkout repo
+      - name: 🧾 Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Kubeconfig
+      - name: ⚙️ Set up Kubeconfig
         shell: powershell
         run: |
+          Write-Host "Setting up kubeconfig..."
           if (-Not (Test-Path "$HOME\.kube")) {
             New-Item -ItemType Directory -Path "$HOME\.kube" | Out-Null
           }
           $base64 = "${{ secrets.KUBE_CONFIG_DATA }}"
           $bytes = [System.Convert]::FromBase64String($base64)
           [System.Text.Encoding]::UTF8.GetString($bytes) | Out-File "$HOME\.kube\config" -Encoding UTF8
+          Write-Host "✅ Kubeconfig written to $HOME\.kube\config"
 
-      - name: Verify cluster connection
+      - name: 🔍 Verify cluster connection
         shell: powershell
-        run: kubectl get nodes
+        run: |
+          Write-Host "Verifying Kubernetes cluster connection..."
+          kubectl get nodes
 
-      - name: Clean existing MySQL PVC (Windows PowerShell Safe JSON)
+      - name: 🧹 Clean existing MySQL PVC (Safe JSON Patch)
         shell: powershell
         run: |
           Write-Host "Checking and cleaning existing MySQL PVC..."
@@ -45,8 +49,9 @@ jobs:
           Write-Host "PVC found. Attempting to remove finalizers (if stuck)..."
       
           # ✅ Create JSON patch file (avoids quoting issues)
-          $patchFile = "C:\Temp\pvc_patch.json"
-          if (!(Test-Path "C:\Temp")) { New-Item -ItemType Directory -Path "C:\Temp" | Out-Null }
+          $patchDir = "C:\Temp"
+          if (!(Test-Path $patchDir)) { New-Item -ItemType Directory -Path $patchDir | Out-Null }
+          $patchFile = Join-Path $patchDir "pvc_patch.json"
           Set-Content -Path $patchFile -Value '{"metadata":{"finalizers":[]}}'
       
           kubectl patch pvc $pvcName -n $namespace --type merge --patch-file $patchFile 2>$null
@@ -56,9 +61,30 @@ jobs:
       
           Write-Host "PVC cleanup step complete."
 
-      - name: Apply Kubernetes manifests
+      - name: ⏳ Wait for PVC to terminate completely
         shell: powershell
         run: |
+          Write-Host "Waiting for old MySQL PVC to fully terminate..."
+          $pvcName = "mysql-storage-mysql-0"
+          $namespace = "three-tier"
+          $timeout = 60
+          $elapsed = 0
+          while ($elapsed -lt $timeout) {
+            $exists = kubectl get pvc $pvcName -n $namespace --ignore-not-found
+            if (-not $exists) {
+              Write-Host "✅ PVC $pvcName has been deleted."
+              break
+            }
+            Write-Host "PVC still terminating... waiting 5 seconds..."
+            Start-Sleep -Seconds 5
+            $elapsed += 5
+          }
+
+      - name: 🚀 Apply Kubernetes manifests
+        shell: powershell
+        run: |
+          Write-Host "Applying all YAML manifests from ./Application-k8s ..."
           Get-ChildItem -Path "./Application-k8s/" -Filter *.yaml -Recurse | ForEach-Object {
-          kubectl apply -f $_.FullName -n three-tier --validate=false
+            Write-Host "Applying $($_.Name)..."
+            kubectl apply -f $_.FullName -n three-tier --validate=false
           }
