@@ -58,4 +58,7 @@ jobs:
 
       - name: Apply Kubernetes manifests
         shell: powershell
-        run: kubectl apply -f "./Application-k8s/" -n three-tier --validate=false
+        run: |
+          Get-ChildItem -Path "./Application-k8s/" -Filter *.yaml -Recurse | ForEach-Object {
+          kubectl apply -f $_.FullName -n three-tier --validate=false
+          }
