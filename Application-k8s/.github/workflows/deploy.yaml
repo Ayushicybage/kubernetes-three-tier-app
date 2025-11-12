@@ -12,7 +12,7 @@ defaults:
 jobs:
   deploy:
     name: Deploy to Kubernetes Cluster
-    runs-on: self-hosted
+    runs-on: [self-hosted, Windows, X64]
 
     env:
       KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
@@ -21,6 +21,13 @@ jobs:
     steps:
       - name: 🧾 Checkout repository
         uses: actions/checkout@v4
+
+      - name: Debug Runner Info
+        run: |
+          Write-Host "Running on OS: $env:OS"
+          hostname
+          whoami
+          $PSVersionTable  
 
       - name: 🔍 Verify Kubernetes connection
         run: |
