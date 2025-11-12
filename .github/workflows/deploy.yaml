@@ -84,7 +84,16 @@ jobs:
         shell: powershell
         run: |
           Write-Host "Applying all YAML manifests from ./Application-k8s ..."
-          Get-ChildItem -Path "./Application-k8s/" -Filter *.yaml -Recurse | ForEach-Object {
+          Get-ChildItem -Path "./Application-k8s/" -Filter *.yaml -Recurse |
+          Where-Object { $_.FullName -notmatch "\\.github\\" } |
+          ForEach-Object {
             Write-Host "Applying $($_.Name)..."
             kubectl apply -f $_.FullName -n three-tier --validate=false
           }
+
+      - name: ✅ Verify deployment status
+        shell: powershell
+        run: |
+          Write-Host "Listing pods and services in 'three-tier' namespace..."
+          kubectl get pods -n three-tier
+          kubectl get svc -n three-tier
