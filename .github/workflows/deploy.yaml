@@ -28,7 +28,7 @@ jobs:
         shell: powershell
         run: kubectl get nodes
 
-      - name: Clean existing MySQL PVC 
+      - name: Clean existing MySQL PVC (Windows PowerShell Safe JSON)
         shell: powershell
         run: |
           Write-Host "Checking and cleaning existing MySQL PVC..."
@@ -44,15 +44,17 @@ jobs:
       
           Write-Host "PVC found. Attempting to remove finalizers (if stuck)..."
       
-          # ✅ Use double quotes outside, escape inner double quotes for JSON
-          $patch = '{""metadata"":{""finalizers"":[]}}'
-          kubectl patch pvc $pvcName -n $namespace --type merge -p $patch 2>$null
+          # ✅ Create JSON patch file (avoids quoting issues)
+          $patchFile = "C:\Temp\pvc_patch.json"
+          if (!(Test-Path "C:\Temp")) { New-Item -ItemType Directory -Path "C:\Temp" | Out-Null }
+          Set-Content -Path $patchFile -Value '{"metadata":{"finalizers":[]}}'
+      
+          kubectl patch pvc $pvcName -n $namespace --type merge --patch-file $patchFile 2>$null
       
           Write-Host "Forcing PVC deletion (non-blocking)..."
           kubectl delete pvc $pvcName -n $namespace --ignore-not-found --grace-period=0 --force --wait=false
       
           Write-Host "PVC cleanup step complete."
-
 
       - name: Apply Kubernetes manifests
         shell: powershell
