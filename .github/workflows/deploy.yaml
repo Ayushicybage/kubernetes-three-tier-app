@@ -17,12 +17,9 @@ jobs:
       - name: Set up Kubeconfig
         shell: powershell
         run: |
-          # Create .kube folder if it doesn't exist
           if (-Not (Test-Path "$HOME\.kube")) {
             New-Item -ItemType Directory -Path "$HOME\.kube" | Out-Null
           }
-
-          # Decode and write kubeconfig file
           $base64 = "${{ secrets.KUBE_CONFIG_DATA }}"
           $bytes = [System.Convert]::FromBase64String($base64)
           [System.Text.Encoding]::UTF8.GetString($bytes) | Out-File "$HOME\.kube\config" -Encoding UTF8
@@ -31,6 +28,14 @@ jobs:
         shell: powershell
         run: kubectl get nodes
 
-      - name: Apply Kubernetes manifests
+      - name: Clean existing PVC (prevent conflict)
         shell: powershell
-        run: kubectl apply -f "./Application-k8s/" -n three-tier
+        run: |
+          kubectl delete pvc mysql-storage-mysql-0 -n three-tier --ignore-not-found
+
+      - name: Apply Kubernetes manifests (excluding patch.json)
+        shell: powershell
+        run: |
+          Get-ChildItem "./Application-k8s/*.yaml" | 
+            Where-Object { $_.Name -ne "patch.json" } | 
+            ForEach-Object { kubectl apply -f $_.FullName -n three-tier }
