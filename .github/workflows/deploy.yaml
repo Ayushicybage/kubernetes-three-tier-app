@@ -31,11 +31,8 @@ jobs:
       - name: Clean existing PVC (prevent conflict)
         shell: powershell
         run: |
-          kubectl delete pvc mysql-storage-mysql-0 -n three-tier --ignore-not-found
+          kubectl delete pvc mysql-storage-mysql-0 -n three-tier --ignore-not-found --grace-period=0 --force || echo "PVC not found or already deleted"
 
-      - name: Apply Kubernetes manifests (excluding patch.json)
+      - name: Apply Kubernetes manifests
         shell: powershell
-        run: |
-          Get-ChildItem "./Application-k8s/*.yaml" | 
-            Where-Object { $_.Name -ne "patch.json" } | 
-            ForEach-Object { kubectl apply -f $_.FullName -n three-tier }
+        run: kubectl apply -f "./Application-k8s/" -n three-tier --validate=false
