@@ -29,7 +29,7 @@ jobs:
         run: kubectl get nodes
 
       - name: Clean existing MySQL PVC (PowerShell-safe)
-        shell: pwsh
+        shell: powershell
         run: |
           Write-Host "Checking and cleaning existing MySQL PVC..."
           $pvcName = "mysql-storage-mysql-0"
