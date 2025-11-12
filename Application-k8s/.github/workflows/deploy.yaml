@@ -3,44 +3,64 @@ name: Deploy to Kubernetes
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:  # 👈 Allows manual trigger from GitHub UI
 
 defaults:
   run:
-    shell: pwsh   # 👈 Ensures PowerShell on Windows runner
+    shell: pwsh  # Use PowerShell on Windows runner
 
 jobs:
   deploy:
     name: Deploy to Kubernetes Cluster
     runs-on: self-hosted
 
+    env:
+      KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
+      NAMESPACE: "three-tier"
+
     steps:
-      - name: Checkout repository
+      - name: 🧾 Checkout repository
         uses: actions/checkout@v4
 
-      - name: Verify Kubernetes connection
-        env:
-          KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
+      - name: 🔍 Verify Kubernetes connection
         run: |
-          Write-Host "Using kubeconfig at $env:KUBECONFIG"
-          type $env:KUBECONFIG
+          Write-Host "✅ Using kubeconfig at $env:KUBECONFIG"
           kubectl config view
           kubectl config current-context
           kubectl cluster-info
           kubectl get nodes
 
-      - name: Deploy to cluster
-        env:
-          KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
+      - name: 🚀 Deploy to cluster
         run: |
-          Write-Host "🚀 Deploying Kubernetes manifests..."
-          kubectl apply -f "C:\\Users\\ayushidh\\Desktop\\Application-k8s\\" -n three-tier
-          kubectl rollout status deployment/backend -n three-tier
-          kubectl rollout status deployment/frontend -n three-tier
-          kubectl get pods -n three-tier
+          Write-Host "Applying manifests from $env:GITHUB_WORKSPACE ..."
+          kubectl apply -f "$env:GITHUB_WORKSPACE" -n $env:NAMESPACE
+          if ($LASTEXITCODE -ne 0) { Write-Error "kubectl apply failed!"; exit 1 }
 
-      - name: Verify deployment resources
-        env:
-          KUBECONFIG: "C:\\Users\\ayushidh\\.kube\\config"
+          Write-Host "Waiting for backend rollout..."
+          kubectl rollout status deployment/backend -n $env:NAMESPACE --timeout=120s
+          if ($LASTEXITCODE -ne 0) { Write-Error "Backend deployment failed!"; exit 1 }
+
+          Write-Host "Waiting for frontend rollout..."
+          kubectl rollout status deployment/frontend -n $env:NAMESPACE --timeout=120s
+          if ($LASTEXITCODE -ne 0) { Write-Error "Frontend deployment failed!"; exit 1 }
+
+      - name: 📦 Verify deployment resources
         run: |
-          Write-Host "📦 Listing all resources in 'three-tier' namespace..."
-          kubectl get all -n three-tier
+          Write-Host "Listing all resources in '$env:NAMESPACE' namespace..."
+          kubectl get all -n $env:NAMESPACE
+
+      - name: 🧩 Capture logs if failure occurs
+        if: failure()
+        continue-on-error: true
+        run: |
+          Write-Host "Collecting logs for debugging..."
+          kubectl get pods -n $env:NAMESPACE
+          kubectl logs -l app=backend -n $env:NAMESPACE > backend.log
+          kubectl logs -l app=frontend -n $env:NAMESPACE > frontend.log
+
+      - name: 📤 Upload logs as artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: k8s-logs
+          path: "*.log"
