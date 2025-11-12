@@ -31,7 +31,12 @@ jobs:
       - name: Clean existing PVC (prevent conflict)
         shell: powershell
         run: |
-          kubectl delete pvc mysql-storage-mysql-0 -n three-tier --ignore-not-found --grace-period=0 --force || echo "PVC not found or already deleted"
+          try {
+             kubectl delete pvc mysql-storage-mysql-0 -n three-tier --ignore-not-found --grace-period=0 --force
+          }
+          catch {
+            Write-Host "PVC not found or already deleted"
+          }
 
       - name: Apply Kubernetes manifests
         shell: powershell
