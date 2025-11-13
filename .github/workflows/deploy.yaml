@@ -40,16 +40,18 @@ jobs:
           if (-not $cluster) {
               Write-Host "No Kind cluster found. Creating one..."
               kind create cluster --name three-tier
-          } else {
+          }
+          else {
               Write-Host "Kind cluster already exists. Checking if nodes are ready..."
-      
+
               try {
                   $nodes = kubectl get nodes 2>$null
                   if (-not $nodes) {
                       Write-Host "Cluster found but not reachable — restarting container..."
                       kind delete cluster --name three-tier
                       kind create cluster --name three-tier
-                  } else {
+                  }
+                  else {
                       Write-Host "Kind cluster is active and reachable."
                   }
               }
@@ -59,7 +61,7 @@ jobs:
                   kind create cluster --name three-tier
               }
           }
-    
+
       - name: 🔍 Verify cluster connection
         shell: powershell
         run: |
