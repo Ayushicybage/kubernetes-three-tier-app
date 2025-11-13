@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: 🧾 Checkout repo
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
 
       - name: ⚙️ Set up Kubeconfig
         shell: powershell
