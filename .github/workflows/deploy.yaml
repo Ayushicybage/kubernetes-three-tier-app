@@ -29,6 +29,32 @@ jobs:
           [System.Text.Encoding]::UTF8.GetString($bytes) | Out-File "$HOME\.kube\config" -Encoding UTF8
           Write-Host "✅ Kubeconfig written to $HOME\.kube\config"
 
+      - name: 🧱 Ensure Kind cluster is running
+        shell: powershell
+        run: |
+          Write-Host "Checking if Kind cluster exists..."
+          $cluster = kind get clusters 2>$null
+          if (-not $cluster) {
+            Write-Host "No Kind cluster found. Creating one..."
+            kind create cluster --name three-tier
+          } else {
+            Write-Host "Kind cluster already exists. Checking if nodes are ready..."
+            try {
+              $nodes = kubectl get nodes 2>$null
+              if (-not $nodes) {
+                Write-Host "Cluster found but not reachable — restarting container..."
+                kind delete cluster --name three-tier
+                kind create cluster --name three-tier
+              } else {
+                Write-Host "Kind cluster is active and reachable."
+              }
+            } catch {
+              Write-Host "Cluster unreachable — recreating..."
+              kind delete cluster --name three-tier
+              kind create cluster --name three-tier
+            }
+          }
+
       - name: 🔍 Verify cluster connection
         shell: powershell
         run: |
