@@ -36,6 +36,7 @@ jobs:
         run: |
           Write-Host "Checking if Kind cluster exists..."
           $cluster = kind get clusters 2>$null
+
           if (-not $cluster) {
             Write-Host "No Kind cluster found. Creating one..."
             kind create cluster --name three-tier
