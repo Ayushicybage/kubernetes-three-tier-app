@@ -28,8 +28,8 @@ jobs:
       - name: 🔍 Verify cluster connection
         shell: powershell
         run: |
-          Write-Host "Verifying Kubernetes cluster connection..."
-          kubectl get nodes
+          Write-Host "Writing kubeconfig for Kind cluster three-tier..."
+          kind get kubeconfig --name three-tier | Out-File "$HOME\.kube\config" -Encoding UTF8
       - name: 🧹 Clean existing MySQL PVC (Safe JSON Patch)
         shell: powershell
         run: |
