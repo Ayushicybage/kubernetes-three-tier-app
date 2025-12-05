@@ -77,6 +77,32 @@ jobs:
             Start-Sleep -Seconds 5
             $elapsed += 5
           }
+
+      - name: 🧱 Update K8s manifests with new image
+        shell: powershell
+        run: |
+          Write-Host "🔄 Updating Kubernetes manifests with new image tag..."
+
+          # Define variables
+          $imageTag = "${{ github.sha }}"
+          $dockerUser = "${{ secrets.DOCKER_USERNAME }}"
+          $imageRepo = "$dockerUser/backend"
+
+          Write-Host "Using image: $imageRepo:$imageTag"
+
+          # Install yq (YAML processor) if not already available
+          choco install yq -y
+
+          # Update backend image
+          yq eval -i ".spec.template.spec.containers[0].image = `"$imageRepo:$imageTag`"" "./Application-k8s/backend-deployment.yaml"
+
+          
+          $frontendRepo = "$dockerUser/frontend"
+          yq eval -i ".spec.template.spec.containers[0].image = `"$frontendRepo:$imageTag`"" "./Application-k8s/frontend-deployment.yaml"
+
+          Write-Host "✅ Updated manifests with new image tag: $imageTag"
+
+          
       - name: 🚀 Apply Kubernetes manifests
         shell: powershell
         run: |
