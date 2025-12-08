@@ -110,14 +110,15 @@ jobs:
           if (-Not (Test-Path $frontendFile)) { throw "Frontend deployment file not found: $frontendFile" }
       
           # --- Update backend image ---
-          Write-Host "Updating backend image to $backendRepo:$imageTag"
-          (Get-Content $backendFile) -replace 'image: .*', "image: $backendRepo:$imageTag" | Set-Content $backendFile
+          Write-Host ("Updating backend image to {0}:{1}" -f $backendRepo, $imageTag)
+          (Get-Content $backendFile) -replace 'image: .*', ("image: {0}:{1}" -f $backendRepo, $imageTag) | Set-Content $backendFile
       
           # --- Update frontend image ---
-          Write-Host "Updating frontend image to $frontendRepo:$imageTag"
-          (Get-Content $frontendFile) -replace 'image: .*', "image: $frontendRepo:$imageTag" | Set-Content $frontendFile
+          Write-Host ("Updating frontend image to {0}:{1}" -f $frontendRepo, $imageTag)
+          (Get-Content $frontendFile) -replace 'image: .*', ("image: {0}:{1}" -f $frontendRepo, $imageTag) | Set-Content $frontendFile
       
-          Write-Host "All manifests updated with image tag: $imageTag"
+          Write-Host ("All manifests updated with image tag: {0}" -f $imageTag)
+
 
       # ----------------------------------------------------
       # 4️⃣  Deploy all manifests to Kind cluster
