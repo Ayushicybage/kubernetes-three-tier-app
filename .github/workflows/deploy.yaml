@@ -32,7 +32,7 @@ jobs:
       - name: 🔍 Verify cluster connection
         shell: powershell
         run: |
-          Write-Host "🔎 Checking Kind cluster status..."
+          Write-Host "Checking Kind cluster status..."
           kubectl cluster-info
           kubectl get nodes
 
@@ -61,7 +61,7 @@ jobs:
 
           kubectl patch pvc $pvcName -n $namespace --type merge --patch-file $patchFile 2>$null
           kubectl delete pvc $pvcName -n $namespace --ignore-not-found --grace-period=0 --force --wait=false
-          Write-Host "✅ PVC cleanup step complete."
+          Write-Host "PVC cleanup step complete."
 
       - name: ⏳ Wait for PVC to terminate completely
         shell: powershell
@@ -74,7 +74,7 @@ jobs:
           while ($elapsed -lt $timeout) {
             $exists = kubectl get pvc $pvcName -n $namespace --ignore-not-found
             if (-not $exists) {
-              Write-Host "✅ PVC $pvcName has been deleted."
+              Write-Host "PVC $pvcName has been deleted."
               break
             }
             Write-Host "PVC still terminating... waiting 5 seconds..."
@@ -105,7 +105,7 @@ jobs:
           Write-Host "Updating frontend image to $frontendRepo:$imageTag"
           yq eval -i ".spec.template.spec.containers[0].image = `"$frontendRepo:$imageTag`"" "./Application-k8s/frontend-deployment.yaml"
 
-          Write-Host "✅ All manifests updated with image tag: $imageTag"
+          Write-Host "All manifests updated with image tag: $imageTag"
 
       # ----------------------------------------------------
       # 4️⃣  Deploy all manifests to Kind cluster
@@ -127,6 +127,6 @@ jobs:
       - name: ✅ Verify deployment status
         shell: powershell
         run: |
-          Write-Host "📋 Listing pods and services in 'three-tier' namespace..."
+          Write-Host "Listing pods and services in 'three-tier' namespace..."
           kubectl get pods -n three-tier
           kubectl get svc -n three-tier
