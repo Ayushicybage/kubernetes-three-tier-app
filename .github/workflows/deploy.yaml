@@ -93,14 +93,19 @@ jobs:
           $imageTag = "${{ github.sha }}"
           $dockerUser = "${{ secrets.DOCKER_USERNAME }}"
 
-          choco install yq -y
+          # --- Install yq manually (no Chocolatey needed) ---
+          $yqUrl = "https://github.com/mikefarah/yq/releases/latest/download/yq_windows_amd64.exe"
+          Write-Host "Downloading yq from $yqUrl ..."
+          Invoke-WebRequest -Uri $yqUrl -OutFile "C:\yq.exe"
+          $env:Path += ";C:\"
+          yq --version
 
-          # Backend image update
+          # --- Backend image update ---
           $backendRepo = "$dockerUser/backend"
           Write-Host "Updating backend image to ${backendRepo}:${imageTag}"
           yq eval -i ".spec.template.spec.containers[0].image = `"${backendRepo}:${imageTag}`"" "./Application-k8s/backend-deployment.yaml"
 
-          # Frontend image update
+          # --- Frontend image update ---
           $frontendRepo = "$dockerUser/frontend"
           Write-Host "Updating frontend image to ${frontendRepo}:${imageTag}"
           yq eval -i ".spec.template.spec.containers[0].image = `"${frontendRepo}:${imageTag}`"" "./Application-k8s/frontend-deployment.yaml"
