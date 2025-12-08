@@ -109,9 +109,9 @@ jobs:
               $frontendRepo = "frontend"
           }
       
-          $backendFile = Join-Path $PWD "Application-k8s\backend-deployment.yaml"
-          $frontendFile = Join-Path $PWD "Application-k8s\frontend-deployment.yaml"
-      
+          $backendFile = "$PWD/Application-k8s/backend-deployment.yaml"
+          $frontendFile = "$PWD/Application-k8s/frontend-deployment.yaml"
+          
           if (-Not (Test-Path $backendFile)) { throw "Backend deployment file not found: $backendFile" }
           if (-Not (Test-Path $frontendFile)) { throw "Frontend deployment file not found: $frontendFile" }
       
