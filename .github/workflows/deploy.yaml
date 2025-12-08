@@ -88,7 +88,7 @@ jobs:
       - name: 🧱 Update K8s manifests with new image tags
         shell: powershell
         run: |
-          Write-Host "🔄 Updating Kubernetes manifests with new image tag..."
+          Write-Host "Updating Kubernetes manifests with new image tag..."
 
           $imageTag = "${{ github.sha }}"
           $dockerUser = "${{ secrets.DOCKER_USERNAME }}"
@@ -97,15 +97,15 @@ jobs:
 
           # Backend image update
           $backendRepo = "$dockerUser/backend"
-          Write-Host "Updating backend image to $backendRepo:$imageTag"
-          yq eval -i ".spec.template.spec.containers[0].image = `"$backendRepo:$imageTag`"" "./Application-k8s/backend-deployment.yaml"
+          Write-Host "Updating backend image to ${backendRepo}:${imageTag}"
+          yq eval -i ".spec.template.spec.containers[0].image = `"${backendRepo}:${imageTag}`"" "./Application-k8s/backend-deployment.yaml"
 
           # Frontend image update
           $frontendRepo = "$dockerUser/frontend"
-          Write-Host "Updating frontend image to $frontendRepo:$imageTag"
-          yq eval -i ".spec.template.spec.containers[0].image = `"$frontendRepo:$imageTag`"" "./Application-k8s/frontend-deployment.yaml"
+          Write-Host "Updating frontend image to ${frontendRepo}:${imageTag}"
+          yq eval -i ".spec.template.spec.containers[0].image = `"${frontendRepo}:${imageTag}`"" "./Application-k8s/frontend-deployment.yaml"
 
-          Write-Host "All manifests updated with image tag: $imageTag"
+          Write-Host "All manifests updated with image tag: ${imageTag}"
 
       # ----------------------------------------------------
       # 4️⃣  Deploy all manifests to Kind cluster
