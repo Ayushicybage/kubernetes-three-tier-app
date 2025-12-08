@@ -25,7 +25,8 @@ jobs:
             New-Item -ItemType Directory -Path "$HOME\.kube" | Out-Null
           }
           kind get kubeconfig --name three-tier | Out-File "$HOME\.kube\config" -Encoding UTF8
-          Write-Host "✅ Kubeconfig written to $HOME\.kube\config"
+          Write-Host "Kubeconfig written to $HOME\.kube\config"
+
 
       - name: 🔍 Verify cluster connection
         shell: powershell
