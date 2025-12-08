@@ -93,7 +93,7 @@ jobs:
           $imageTag = "${{ github.sha }}"
           $dockerUser = "${{ secrets.DOCKER_USERNAME }}"
       
-          # --- Install yq manually (no Chocolatey needed) ---
+          # --- Install yq manually ---
           $yqUrl = "https://github.com/mikefarah/yq/releases/latest/download/yq_windows_amd64.exe"
           Write-Host "Downloading yq from $yqUrl ..."
           Invoke-WebRequest -Uri $yqUrl -OutFile "C:\yq.exe"
@@ -109,15 +109,22 @@ jobs:
               $frontendRepo = "frontend"
           }
       
+          $backendFile = Join-Path $PWD "Application-k8s\backend-deployment.yaml"
+          $frontendFile = Join-Path $PWD "Application-k8s\frontend-deployment.yaml"
+      
+          if (-Not (Test-Path $backendFile)) { throw "Backend deployment file not found: $backendFile" }
+          if (-Not (Test-Path $frontendFile)) { throw "Frontend deployment file not found: $frontendFile" }
+      
           # --- Update backend image ---
           Write-Host "Updating backend image to ${backendRepo}:${imageTag}"
-          yq eval -i ".spec.template.spec.containers[0].image = \"${backendRepo}:${imageTag}\"" "./Application-k8s/backend-deployment.yaml"
+          yq eval -i ".spec.template.spec.containers[0].image = \"${backendRepo}:${imageTag}\"" $backendFile
       
           # --- Update frontend image ---
           Write-Host "Updating frontend image to ${frontendRepo}:${imageTag}"
-          yq eval -i ".spec.template.spec.containers[0].image = \"${frontendRepo}:${imageTag}\"" "./Application-k8s/frontend-deployment.yaml"
+          yq eval -i ".spec.template.spec.containers[0].image = \"${frontendRepo}:${imageTag}\"" $frontendFile
       
           Write-Host "All manifests updated with image tag: ${imageTag}"
+
 
 
 
