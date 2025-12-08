@@ -100,17 +100,25 @@ jobs:
           $env:Path += ";C:\"
           yq --version
 
+          # --- Compose image names safely ---
+          if ($dockerUser -ne "") {
+              $backendRepo = "$dockerUser/backend"
+              $frontendRepo = "$dockerUser/frontend"
+          } else {
+              $backendRepo = "backend"
+              $frontendRepo = "frontend"
+          }
+
           # --- Backend image update ---
-          $backendRepo = "$dockerUser/backend"
           Write-Host "Updating backend image to ${backendRepo}:${imageTag}"
           yq eval -i ".spec.template.spec.containers[0].image = `"${backendRepo}:${imageTag}`"" "./Application-k8s/backend-deployment.yaml"
 
           # --- Frontend image update ---
-          $frontendRepo = "$dockerUser/frontend"
           Write-Host "Updating frontend image to ${frontendRepo}:${imageTag}"
           yq eval -i ".spec.template.spec.containers[0].image = `"${frontendRepo}:${imageTag}`"" "./Application-k8s/frontend-deployment.yaml"
 
           Write-Host "All manifests updated with image tag: ${imageTag}"
+
 
       # ----------------------------------------------------
       # 4️⃣  Deploy all manifests to Kind cluster
