@@ -7,57 +7,59 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to Kubernetes Cluster
+    name: Deploy to Kind Cluster
     runs-on: [self-hosted, Windows, X64]
 
     steps:
       - name: 🧾 Checkout repo
         uses: actions/checkout@v4
 
-      - name: ⚙️ Set up Kubeconfig
+      # ----------------------------------------------------
+      # 1️⃣  Ensure kubeconfig points to your Kind cluster
+      # ----------------------------------------------------
+      - name: ⚙️ Set up Kubeconfig for Kind cluster
         shell: powershell
         run: |
-          Write-Host "Setting up kubeconfig..."
+          Write-Host "🔧 Generating kubeconfig for Kind cluster 'three-tier'..."
           if (-Not (Test-Path "$HOME\.kube")) {
             New-Item -ItemType Directory -Path "$HOME\.kube" | Out-Null
           }
-          $base64 = "${{ secrets.KUBE_CONFIG_DATA }}"
-          $bytes = [System.Convert]::FromBase64String($base64)
-          [System.Text.Encoding]::UTF8.GetString($bytes) | Out-File "$HOME\.kube\config" -Encoding UTF8
+          kind get kubeconfig --name three-tier | Out-File "$HOME\.kube\config" -Encoding UTF8
           Write-Host "✅ Kubeconfig written to $HOME\.kube\config"
+
       - name: 🔍 Verify cluster connection
         shell: powershell
         run: |
-          Write-Host "Writing kubeconfig for Kind cluster three-tier..."
-          kind get kubeconfig --name three-tier | Out-File "$HOME\.kube\config" -Encoding UTF8
+          Write-Host "🔎 Checking Kind cluster status..."
+          kubectl cluster-info
+          kubectl get nodes
+
+      # ----------------------------------------------------
+      # 2️⃣  Clean up any old MySQL PVC
+      # ----------------------------------------------------
       - name: 🧹 Clean existing MySQL PVC (Safe JSON Patch)
         shell: powershell
         run: |
           Write-Host "Checking and cleaning existing MySQL PVC..."
           $pvcName = "mysql-storage-mysql-0"
           $namespace = "three-tier"
-      
-          # Check if PVC exists
+
           $pvcExists = kubectl get pvc $pvcName -n $namespace --ignore-not-found
           if (-not $pvcExists) {
             Write-Host "No existing PVC found. Skipping cleanup."
             exit 0
           }
-      
+
           Write-Host "PVC found. Attempting to remove finalizers (if stuck)..."
-      
-          # ✅ Create JSON patch file (avoids quoting issues)
+
           $patchDir = "C:\Temp"
           if (!(Test-Path $patchDir)) { New-Item -ItemType Directory -Path $patchDir | Out-Null }
           $patchFile = Join-Path $patchDir "pvc_patch.json"
           Set-Content -Path $patchFile -Value '{"metadata":{"finalizers":[]}}'
-      
+
           kubectl patch pvc $pvcName -n $namespace --type merge --patch-file $patchFile 2>$null
-      
-          Write-Host "Forcing PVC deletion (non-blocking)..."
           kubectl delete pvc $pvcName -n $namespace --ignore-not-found --grace-period=0 --force --wait=false
-      
-          Write-Host "PVC cleanup step complete."
+          Write-Host "✅ PVC cleanup step complete."
 
       - name: ⏳ Wait for PVC to terminate completely
         shell: powershell
@@ -78,44 +80,51 @@ jobs:
             $elapsed += 5
           }
 
-      - name: 🧱 Update K8s manifests with new image
+      # ----------------------------------------------------
+      # 3️⃣  Update K8s manifests with new image tags
+      # ----------------------------------------------------
+      - name: 🧱 Update K8s manifests with new image tags
         shell: powershell
         run: |
           Write-Host "🔄 Updating Kubernetes manifests with new image tag..."
 
-          # Define variables
           $imageTag = "${{ github.sha }}"
           $dockerUser = "${{ secrets.DOCKER_USERNAME }}"
-          $imageRepo = "$dockerUser/backend"
 
-          Write-Host "Using image: $imageRepo:$imageTag"
-
-          # Install yq (YAML processor) if not already available
           choco install yq -y
 
-          # Update backend image
-          yq eval -i ".spec.template.spec.containers[0].image = `"$imageRepo:$imageTag`"" "./Application-k8s/backend-deployment.yaml"
+          # Backend image update
+          $backendRepo = "$dockerUser/backend"
+          Write-Host "Updating backend image to $backendRepo:$imageTag"
+          yq eval -i ".spec.template.spec.containers[0].image = `"$backendRepo:$imageTag`"" "./Application-k8s/backend-deployment.yaml"
 
-          
+          # Frontend image update
           $frontendRepo = "$dockerUser/frontend"
+          Write-Host "Updating frontend image to $frontendRepo:$imageTag"
           yq eval -i ".spec.template.spec.containers[0].image = `"$frontendRepo:$imageTag`"" "./Application-k8s/frontend-deployment.yaml"
 
-          Write-Host "✅ Updated manifests with new image tag: $imageTag"
+          Write-Host "✅ All manifests updated with image tag: $imageTag"
 
-          
+      # ----------------------------------------------------
+      # 4️⃣  Deploy all manifests to Kind cluster
+      # ----------------------------------------------------
       - name: 🚀 Apply Kubernetes manifests
         shell: powershell
         run: |
-          Write-Host "Applying all YAML manifests from ./Application-k8s ..."
+          Write-Host "🚀 Applying all YAML manifests from ./Application-k8s ..."
           Get-ChildItem -Path "./Application-k8s/" -Filter *.yaml -Recurse |
           Where-Object { $_.FullName -notmatch "\\.github\\" } |
           ForEach-Object {
             Write-Host "Applying $($_.Name)..."
             kubectl apply -f $_.FullName -n three-tier --validate=false
           }
+
+      # ----------------------------------------------------
+      # 5️⃣  Verify deployment
+      # ----------------------------------------------------
       - name: ✅ Verify deployment status
         shell: powershell
         run: |
-          Write-Host "Listing pods and services in 'three-tier' namespace..."
+          Write-Host "📋 Listing pods and services in 'three-tier' namespace..."
           kubectl get pods -n three-tier
           kubectl get svc -n three-tier
