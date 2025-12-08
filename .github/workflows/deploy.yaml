@@ -93,13 +93,6 @@ jobs:
           $imageTag = "${{ github.sha }}"
           $dockerUser = "${{ secrets.DOCKER_USERNAME }}"
       
-          # --- Install yq manually ---
-          $yqUrl = "https://github.com/mikefarah/yq/releases/latest/download/yq_windows_amd64.exe"
-          Write-Host "Downloading yq from $yqUrl ..."
-          Invoke-WebRequest -Uri $yqUrl -OutFile "C:\yq.exe"
-          $env:Path += ";C:\"
-          yq --version
-      
           # --- Compose image names safely ---
           if ($dockerUser -ne "") {
               $backendRepo = "$dockerUser/backend"
@@ -109,25 +102,22 @@ jobs:
               $frontendRepo = "frontend"
           }
       
+          # --- File paths ---
           $backendFile = "$PWD/Application-k8s/backend-deployment.yaml"
           $frontendFile = "$PWD/Application-k8s/frontend-deployment.yaml"
-          
+      
           if (-Not (Test-Path $backendFile)) { throw "Backend deployment file not found: $backendFile" }
           if (-Not (Test-Path $frontendFile)) { throw "Frontend deployment file not found: $frontendFile" }
       
           # --- Update backend image ---
-          Write-Host "Updating backend image to ${backendRepo}:${imageTag}"
-          yq eval -i ".spec.template.spec.containers[0].image = \"${backendRepo}:${imageTag}\"" $backendFile
+          Write-Host "Updating backend image to $backendRepo:$imageTag"
+          (Get-Content $backendFile) -replace 'image: .*', "image: $backendRepo:$imageTag" | Set-Content $backendFile
       
           # --- Update frontend image ---
-          Write-Host "Updating frontend image to ${frontendRepo}:${imageTag}"
-          yq eval -i ".spec.template.spec.containers[0].image = \"${frontendRepo}:${imageTag}\"" $frontendFile
+          Write-Host "Updating frontend image to $frontendRepo:$imageTag"
+          (Get-Content $frontendFile) -replace 'image: .*', "image: $frontendRepo:$imageTag" | Set-Content $frontendFile
       
-          Write-Host "All manifests updated with image tag: ${imageTag}"
-
-
-
-
+          Write-Host "All manifests updated with image tag: $imageTag"
 
       # ----------------------------------------------------
       # 4️⃣  Deploy all manifests to Kind cluster
