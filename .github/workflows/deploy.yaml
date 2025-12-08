@@ -119,6 +119,18 @@ jobs:
       
           Write-Host ("All manifests updated with image tag: {0}" -f $imageTag)
 
+      - name: 🌐 Ensure namespace exists
+        shell: powershell
+        run: |
+          Write-Host "Ensuring 'three-tier' namespace exists..."
+          kubectl get ns three-tier 2>$null
+           if ($LASTEXITCODE -ne 0) {
+            Write-Host "Namespace not found. Creating..."
+            kubectl create ns three-tier
+           } else {
+             Write-Host "Namespace already exists."
+           }
+
 
       # ----------------------------------------------------
       # 4️⃣  Deploy all manifests to Kind cluster
