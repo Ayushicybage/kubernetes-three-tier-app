@@ -20,12 +20,13 @@ jobs:
       - name: ⚙️ Set up Kubeconfig for Kind cluster
         shell: powershell
         run: |
-          Write-Host "🔧 Generating kubeconfig for Kind cluster 'three-tier'..."
+          Write-Host "Generating kubeconfig for Kind cluster 'three-tier'..."
           if (-Not (Test-Path "$HOME\.kube")) {
             New-Item -ItemType Directory -Path "$HOME\.kube" | Out-Null
           }
           kind get kubeconfig --name three-tier | Out-File "$HOME\.kube\config" -Encoding UTF8
-          Write-Host "Kubeconfig written to $HOME\.kube\config"
+          $kubePath = Join-Path $HOME ".kube\config"
+          Write-Host "Kubeconfig written to $kubePath"
 
 
       - name: 🔍 Verify cluster connection
