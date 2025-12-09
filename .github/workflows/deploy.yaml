@@ -20,27 +20,27 @@ jobs:
       # ----------------------------------------------------
       # 2️⃣  Build & Push Docker Images to Docker Hub
       # ----------------------------------------------------
-      - name: 🐳 Log in to Docker Hub
+      - name: 🐳 Log in to Docker Hub via Podman
         shell: powershell
         run: |
           $dockerUser = "${{ secrets.DOCKER_USERNAME }}"
           $dockerPass = "${{ secrets.DOCKER_PASSWORD }}"
-          Write-Host "Logging in to Docker Hub..."
-          echo $dockerPass | docker login -u $dockerUser --password-stdin
-
-      - name: 🏗️ Build and Push Backend & Frontend Images
+          Write-Host "Logging in to Docker Hub via Podman..."
+          echo $dockerPass | podman login -u $dockerUser --password-stdin docker.io
+      
+      - name: 🏗️ Build and Push Backend & Frontend Images with Podman
         shell: powershell
         run: |
           $imageTag = "${{ github.sha }}"
           $dockerUser = "${{ secrets.DOCKER_USERNAME }}"
       
           Write-Host "Building backend image..."
-          docker build -t docker.io/$dockerUser/backend:$imageTag -f ./Application-k8s/backend/Dockerfile ./Application-k8s/backend
-          docker push docker.io/$dockerUser/backend:$imageTag
+          podman build -t docker.io/$dockerUser/backend:$imageTag -f ./Application-k8s/backend/Dockerfile ./Application-k8s/backend
+          podman push docker.io/$dockerUser/backend:$imageTag
       
           Write-Host "Building frontend image..."
-          docker build -t docker.io/$dockerUser/frontend:$imageTag -f ./Application-k8s/frontend/Dockerfile ./Application-k8s/frontend
-          docker push docker.io/$dockerUser/frontend:$imageTag
+          podman build -t docker.io/$dockerUser/frontend:$imageTag -f ./Application-k8s/frontend/Dockerfile ./Application-k8s/frontend
+          podman push docker.io/$dockerUser/frontend:$imageTag
 
 
       # ----------------------------------------------------
