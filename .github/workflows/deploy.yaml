@@ -20,7 +20,7 @@ jobs:
       # ----------------------------------------------------
       # 2️⃣  Build & Push Docker Images to Docker Hub
       # ----------------------------------------------------
-      - name: 🐳 Log in to Docker Hub via Podman
+      - name: 🐳 Log in to Docker Hub via Podman...
         shell: powershell
         run: |
           $env:PODMAN_USER = "${{ secrets.DOCKER_USERNAME }}"
@@ -28,7 +28,7 @@ jobs:
           Write-Host "Logging in to Docker Hub via Podman..."
           cmd /c "echo %PODMAN_PASS% | podman login -u %PODMAN_USER% --password-stdin docker.io"
             
-      - name: 🏗️ Build and Push Backend & Frontend Images with Podman
+      - name: 🏗️ Build and Push Backend & Frontend Images with Podman...
         shell: powershell
         run: |
           $imageTag = "${{ github.sha }}"
