@@ -46,7 +46,7 @@ jobs:
       # ----------------------------------------------------
       # 3️⃣  Ensure kubeconfig points to Kind cluster
       # ----------------------------------------------------
-      - name: ⚙️ Set up Kubeconfig for Kind cluster
+      - name: ⚙️ Set up Kubeconfig for Kind cluster...
         shell: powershell
         run: |
           Write-Host "Generating kubeconfig for Kind cluster 'three-tier'..."
@@ -57,7 +57,7 @@ jobs:
           $kubePath = Join-Path $HOME ".kube\config"
           Write-Host "✅ Kubeconfig written to $kubePath"
 
-      - name: 🔍 Verify cluster connection
+      - name: 🔍 Verify cluster connection...
         shell: powershell
         run: |
           Write-Host "Checking Kind cluster status..."
@@ -67,7 +67,7 @@ jobs:
       # ----------------------------------------------------
       # 4️⃣  Clean up any old MySQL PVC
       # ----------------------------------------------------
-      - name: 🧹 Clean existing MySQL PVC (Safe JSON Patch)
+      - name: 🧹 Clean existing MySQL PVC (Safe JSON Patch)...
         shell: powershell
         run: |
           Write-Host "Checking and cleaning existing MySQL PVC..."
@@ -90,7 +90,7 @@ jobs:
           kubectl delete pvc $pvcName -n $namespace --ignore-not-found --grace-period=0 --force --wait=false
           Write-Host "PVC cleanup step complete."
 
-      - name: ⏳ Wait for PVC to terminate completely
+      - name: ⏳ Wait for PVC to terminate completely...
         shell: powershell
         run: |
           Write-Host "Waiting for old MySQL PVC to fully terminate..."
@@ -112,7 +112,7 @@ jobs:
       # ----------------------------------------------------
       # 5️⃣  Update K8s manifests with new image tags
       # ----------------------------------------------------
-      - name: 🧱 Update K8s manifests with new image tags
+      - name: 🧱 Update K8s manifests with new image tags...
         shell: powershell
         run: |
           Write-Host "Updating Kubernetes manifests with new image tag..."
@@ -137,7 +137,7 @@ jobs:
       # ----------------------------------------------------
       # 6️⃣  Ensure Namespace Exists
       # ----------------------------------------------------
-      - name: 🌐 Ensure namespace exists
+      - name: 🌐 Ensure namespace exists...
         shell: powershell
         run: |
           Write-Host "Ensuring 'three-tier' namespace exists..."
@@ -152,7 +152,7 @@ jobs:
       # ----------------------------------------------------
       # 7️⃣  Apply Kubernetes manifests
       # ----------------------------------------------------
-      - name: 🚀 Apply Kubernetes manifests
+      - name: 🚀 Apply Kubernetes manifests...
         shell: powershell
         run: |
           Write-Host "🚀 Applying all YAML manifests from ./Application-k8s ..."
@@ -165,7 +165,7 @@ jobs:
       # ----------------------------------------------------
       # 8️⃣  Verify deployment
       # ----------------------------------------------------
-      - name: ✅ Verify deployment status
+      - name: ✅ Verify deployment status...
         shell: powershell
         run: |
           Write-Host "Listing pods and services in 'three-tier' namespace..."
