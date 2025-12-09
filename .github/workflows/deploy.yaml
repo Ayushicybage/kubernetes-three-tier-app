@@ -26,7 +26,7 @@ jobs:
           $dockerUser = "${{ secrets.DOCKER_USERNAME }}"
           $dockerPass = "${{ secrets.DOCKER_PASSWORD }}"
           Write-Host "Logging in to Docker Hub via Podman..."
-          echo $dockerPass | podman login -u $dockerUser --password-stdin docker.io
+          podman login -u $dockerUser -p $dockerPass docker.io
       
       - name: 🏗️ Build and Push Backend & Frontend Images with Podman
         shell: powershell
