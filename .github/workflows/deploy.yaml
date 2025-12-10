@@ -20,23 +20,31 @@ jobs:
       # ----------------------------------------------------
       # 2️⃣  Build & Push Docker Images to Docker Hub
       # ----------------------------------------------------
+      - name: 🧩 Ensure Podman machine is running
+        shell: powershell
+        run: |
+          Write-Host "Checking Podman machine status..."
+          $status = podman machine list | Select-String "Running" -ErrorAction SilentlyContinue
+          if (-not $status) {
+            Write-Host "Starting Podman machine..."
+            $exists = podman machine list | Select-String "podman-machine-default" -ErrorAction SilentlyContinue
+            if (-not $exists) {
+              Write-Host "Initializing Podman machine for the first time..."
+              podman machine init --cpus 2 --memory 4096 --disk-size 20
+            }
+            podman machine start
+          } else {
+            Write-Host "✅ Podman machine is already running."
+          }
+
+          Write-Host "`nPodman connections:"
+          podman system connection list
+
       - name: 🐳 Log in to Docker Hub via Podman
         shell: powershell
         run: |
           Write-Host "Logging in to Docker Hub via Podman..."
           podman login docker.io -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
-
-      - name: 🧩 Ensure Podman machine is running
-        shell: powershell
-        run: |
-          Write-Host "Checking Podman machine status..."
-          $status = podman machine list | Select-String "Running"
-          if (-not $status) {
-            Write-Host "Starting Podman machine..."
-            podman machine init --now
-          } else {
-            Write-Host "Podman machine is already running."
-          }
         
       - name: 🏗️ Build and Push Backend & Frontend Images with Podman...
         shell: powershell
