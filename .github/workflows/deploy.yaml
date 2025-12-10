@@ -27,26 +27,18 @@ jobs:
           $status = podman machine list | Select-String "Running" -ErrorAction SilentlyContinue
           if (-not $status) {
             Write-Host "Starting Podman machine..."
-            $exists = podman machine list | Select-String "podman-machine-default" -ErrorAction SilentlyContinue
-            if (-not $exists) {
-              Write-Host "Initializing Podman machine for the first time..."
-              podman machine init --cpus 2 --memory 4096 --disk-size 20
-            }
             podman machine start
           } else {
             Write-Host "✅ Podman machine is already running."
           }
-
-          Write-Host "`nPodman connections:"
-          podman system connection list
-
+      
       - name: 🐳 Log in to Docker Hub via Podman
         shell: powershell
         run: |
           Write-Host "Logging in to Docker Hub via Podman..."
           podman login docker.io -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
-        
-      - name: 🏗️ Build and Push Backend & Frontend Images with Podman...
+      
+      - name: 🏗️ Build and Push Backend & Frontend Images with Podman
         shell: powershell
         run: |
           $imageTag = "${{ github.sha }}"
@@ -59,6 +51,7 @@ jobs:
           Write-Host "Building frontend image..."
           podman build -t docker.io/$dockerUser/frontend:$imageTag -f ./Application-k8s/frontend/Dockerfile ./Application-k8s/frontend
           podman push docker.io/$dockerUser/frontend:$imageTag
+
 
 
       # ----------------------------------------------------
