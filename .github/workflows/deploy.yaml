@@ -23,10 +23,14 @@ jobs:
       - name: 🐳 Log in to Docker Hub via Podman...
         shell: powershell
         run: |
-          $env:PODMAN_USER = "${{ secrets.DOCKER_USERNAME }}"
-          $env:PODMAN_PASS = "${{ secrets.DOCKER_PASSWORD }}"
+          $env:PODMAN_USER = "your-username"
+          $env:PODMAN_PASS = "your-password"
+          
           Write-Host "Logging in to Docker Hub via Podman..."
-          cmd /c "echo %PODMAN_PASS% | podman login -u %PODMAN_USER% --password-stdin docker.io"
+          $securePass = ConvertTo-SecureString $env:PODMAN_PASS -AsPlainText -Force
+          $cred = New-Object System.Management.Automation.PSCredential($env:PODMAN_USER, $securePass)
+          
+          podman login docker.io --username $env:PODMAN_USER --password $env:PODMAN_PASS
             
       - name: 🏗️ Build and Push Backend & Frontend Images with Podman...
         shell: powershell
