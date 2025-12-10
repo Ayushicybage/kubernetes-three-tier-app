@@ -26,7 +26,18 @@ jobs:
           Write-Host "Logging in to Docker Hub via Podman..."
           podman login docker.io -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
 
-            
+      - name: 🧩 Ensure Podman machine is running
+        shell: powershell
+        run: |
+          Write-Host "Checking Podman machine status..."
+          $status = podman machine list | Select-String "Running"
+          if (-not $status) {
+            Write-Host "Starting Podman machine..."
+            podman machine init --now
+          } else {
+            Write-Host "Podman machine is already running."
+          }
+        
       - name: 🏗️ Build and Push Backend & Frontend Images with Podman...
         shell: powershell
         run: |
