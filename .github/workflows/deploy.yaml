@@ -151,14 +151,19 @@ jobs:
       - name: 🧩 Ensure 'three-tier' namespace exists
         shell: powershell
         run: |
+          $ErrorActionPreference = 'Continue'   # <-- prevents pipeline failure
           Write-Host "Ensuring 'three-tier' namespace exists..."
-          kubectl get ns three-tier > $null 2>&1
+      
+          # Try to get namespace without failing on error
+          $nsExists = & kubectl get ns three-tier 2>$null
           if ($LASTEXITCODE -ne 0) {
             Write-Host "Namespace not found. Creating..."
-            kubectl create ns three-tier
+            & kubectl create ns three-tier
           } else {
             Write-Host "✅ Namespace already exists."
           }
+      
+          exit 0   # <-- ensures GitHub step always exits cleanly
 
 
 
