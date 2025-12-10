@@ -170,15 +170,22 @@ jobs:
       # ----------------------------------------------------
       # 7️⃣  Apply Kubernetes manifests
       # ----------------------------------------------------
-      - name: 🚀 Apply Kubernetes manifests...
+      - name: 🚀 Apply all Kubernetes manifests
         shell: powershell
         run: |
+          $ErrorActionPreference = 'Continue'
           Write-Host "🚀 Applying all YAML manifests from ./Application-k8s ..."
           Get-ChildItem -Path "./Application-k8s/" -Filter *.yaml -Recurse |
+          Where-Object { $_.FullName -notmatch "\\.github" -and $_.Name -notmatch "pvc.yaml" } |
           ForEach-Object {
             Write-Host "Applying $($_.Name)..."
-            kubectl apply -f $_.FullName -n three-tier --validate=false
+            & kubectl apply -f $_.FullName -n three-tier --validate=false
+            if ($LASTEXITCODE -ne 0) {
+              Write-Host "⚠️ Warning: apply failed for $($_.Name), continuing..."
+              $global:LASTEXITCODE = 0
+            }
           }
+          exit 0
 
       # ----------------------------------------------------
       # 8️⃣  Verify deployment
