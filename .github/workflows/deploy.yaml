@@ -148,17 +148,18 @@ jobs:
       # ----------------------------------------------------
       # 6️⃣  Ensure Namespace Exists
       # ----------------------------------------------------
-      - name: 🌐 Ensure namespace exists...
+      - name: 🧩 Ensure 'three-tier' namespace exists
         shell: powershell
         run: |
           Write-Host "Ensuring 'three-tier' namespace exists..."
-          kubectl get ns three-tier 2>$null
-          if ($LASTEXITCODE -ne 0) {
+          try {
+            kubectl get ns three-tier -ErrorAction Stop | Out-Null
+            Write-Host "✅ Namespace already exists."
+          } catch {
             Write-Host "Namespace not found. Creating..."
             kubectl create ns three-tier
-          } else {
-            Write-Host "Namespace already exists."
           }
+
 
       # ----------------------------------------------------
       # 7️⃣  Apply Kubernetes manifests
