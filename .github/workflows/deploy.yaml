@@ -152,13 +152,14 @@ jobs:
         shell: powershell
         run: |
           Write-Host "Ensuring 'three-tier' namespace exists..."
-          try {
-            kubectl get ns three-tier -ErrorAction Stop | Out-Null
-            Write-Host "✅ Namespace already exists."
-          } catch {
+          kubectl get ns three-tier > $null 2>&1
+          if ($LASTEXITCODE -ne 0) {
             Write-Host "Namespace not found. Creating..."
             kubectl create ns three-tier
+          } else {
+            Write-Host "✅ Namespace already exists."
           }
+
 
 
       # ----------------------------------------------------
