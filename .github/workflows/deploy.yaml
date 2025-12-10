@@ -20,17 +20,12 @@ jobs:
       # ----------------------------------------------------
       # 2️⃣  Build & Push Docker Images to Docker Hub
       # ----------------------------------------------------
-      - name: 🐳 Log in to Docker Hub via Podman...
-        shell: powershell
+      - name: 🐳 Log in to Docker Hub via Podman
+        shell: pwsh
         run: |
-          $env:PODMAN_USER = "your-username"
-          $env:PODMAN_PASS = "your-password"
-          
           Write-Host "Logging in to Docker Hub via Podman..."
-          $securePass = ConvertTo-SecureString $env:PODMAN_PASS -AsPlainText -Force
-          $cred = New-Object System.Management.Automation.PSCredential($env:PODMAN_USER, $securePass)
-          
-          podman login docker.io --username $env:PODMAN_USER --password $env:PODMAN_PASS
+          podman login docker.io -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+
             
       - name: 🏗️ Build and Push Backend & Frontend Images with Podman...
         shell: powershell
